@@ -1,8 +1,10 @@
 import express, { Express } from 'express';
+import route from './route';
+import { API_PORT } from './constant';
+
 const app: Express = express();
 
-const port = 5000;
-app.get('/', (_, res) => {
-  res.status(200).send();
-});
-app.listen(port, () => console.log(`Running on port ${port}`));
+app.use('/api', route.router);
+app.set('Content-Type', 'application/json');
+
+app.listen(API_PORT, () => console.log(`Running on port ${API_PORT}`));

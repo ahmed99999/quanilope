@@ -1,8 +1,11 @@
 import { Router } from 'express';
-import api from './api';
+
+import rows from './rows';
+import columns from './columns';
 
 const router = Router();
 
-router.use('/api', api.router);
+router.use('/rows', rows.router).use('/columns', columns.router);
 
 export default { router };
+export { router };
