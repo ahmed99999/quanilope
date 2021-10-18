@@ -1,5 +1,5 @@
 export interface RowRequest {
-  image: string;
+  image?: string;
   name: string;
 }
 

@@ -1,5 +1,5 @@
 export interface ColumnRequest {
-  image: string;
+  image?: string;
   name: string;
 }
 
