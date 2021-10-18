@@ -2,13 +2,14 @@ import express, { Express } from 'express';
 import route from './route';
 import { API_PORT, DATABASE_URL } from './constant';
 import database from './service/database';
-import bodyParser from 'body-parser';
+import cors from 'cors';
 // import { config } from 'dotenv';
 
 // config();
 
 const app: Express = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('Content-Type', 'application/json');
