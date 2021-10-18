@@ -5,12 +5,13 @@ const ColumnSchema = new mongoose.Schema({
     type: String,
     required: [true, 'must provide name'],
     trim: true,
-    maxlength: [8, 'name can not be more than 8 characters'],
+    maxlength: [20, 'name can not be more than 20 characters'],
   },
   image: {
     type: String,
   },
 });
 
-export default ColumnSchema;
-export { ColumnSchema };
+const Column = mongoose.model('Column', ColumnSchema);
+export default Column;
+export { Column };

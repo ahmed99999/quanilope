@@ -4,5 +4,5 @@ export interface ColumnRequest {
 }
 
 export interface ColumnIdentifier extends ColumnRequest {
-  id: number;
+  _id: string;
 }

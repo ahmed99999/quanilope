@@ -1,36 +1,99 @@
-import { Router, Request, Response } from 'express';
-import { ColumnIdentifier, ColumnRequest } from '../../../type';
+import { Router, Request, Response, NextFunction } from 'express';
+import { ColumnIdentifier, ColumnRequest, ApiResponse } from '../../../type';
+import controller from '../../../controller';
+import { NotFoundError, ValidationError, CustomError } from '../../../error';
+import { validateId } from '../../../util';
 
 const router = Router({ mergeParams: true });
 
-const get = (_req: Request, res: Response<ColumnIdentifier>) => {
-  const response: ColumnIdentifier = {
-    id: 0,
-    image: '',
-    name: 'col1',
-  };
+const get = async (
+  req: Request,
+  res: Response<ApiResponse<ColumnIdentifier>>,
+  next: NextFunction
+) => {
+  try {
+    const { id: columnId } = req.params;
 
-  res.status(200).send(response);
+    if (!validateId(columnId))
+      throw { name: 'ValidationError', message: columnId };
+
+    const column = await controller.column.getColumn(columnId);
+
+    if (!column) throw { name: 'NotFoundError', message: columnId };
+
+    res.status(200).send({ data: column });
+  } catch (error: any) {
+    if (error.name === 'ValidationError') {
+      next(new ValidationError(error.message));
+    }
+
+    if (error.name === 'NotFoundError') {
+      next(new NotFoundError(error.message));
+    }
+
+    next(new CustomError('something went wrong, try again', 500));
+  }
 };
 
-const post = (req: Request, res: Response<ColumnIdentifier>) => {
-  const params = req.body as ColumnRequest;
+const put = async (
+  req: Request,
+  res: Response<ApiResponse<ColumnIdentifier>>,
+  next: NextFunction
+) => {
+  try {
+    const { id: columnId } = req.params;
+    const params = req.body as ColumnRequest;
 
-  res.send({ ...params, id: 1 });
+    if (!validateId(columnId))
+      throw { name: 'ValidationError', message: columnId };
+
+    const column = await controller.column.updateColumn(columnId, params);
+
+    if (!column) throw { name: 'NotFoundError', message: columnId };
+
+    res.status(200).send({ data: column });
+  } catch (error: any) {
+    if (error.name === 'ValidationError') {
+      next(new ValidationError(error.message));
+    }
+
+    if (error.name === 'NotFoundError') {
+      next(new NotFoundError(error.message));
+    }
+
+    next(new CustomError('something went wrong, try again', 500));
+  }
 };
 
-const put = (req: Request, res: Response<ColumnIdentifier>) => {
-  const params = req.body as ColumnRequest;
+const remove = async (
+  req: Request,
+  res: Response<ApiResponse<ColumnIdentifier>>,
+  next: NextFunction
+) => {
+  try {
+    const { id: columnId } = req.params;
 
-  res.send({ ...params, id: 1 });
+    if (!validateId(columnId))
+      throw { name: 'ValidationError', message: columnId };
+
+    const column = await controller.column.deleteColumn(columnId);
+
+    if (!column) throw { name: 'NotFoundError', message: columnId };
+
+    res.status(200).send({ data: column });
+  } catch (error: any) {
+    if (error.name === 'ValidationError') {
+      next(new ValidationError(error.message));
+    }
+
+    if (error.name === 'NotFoundError') {
+      next(new NotFoundError(error.message));
+    }
+
+    next(new CustomError('something went wrong, try again', 500));
+  }
 };
 
-const remove = (req: Request, res: Response<ColumnIdentifier>) => {
-  const params = req.body as ColumnRequest;
-
-  res.send({ ...params, id: 1 });
-};
-
-router.route('/').get(get).post(post).put(put).delete(remove);
+router.route('/').get(get).put(put).delete(remove);
 
 export default { router };

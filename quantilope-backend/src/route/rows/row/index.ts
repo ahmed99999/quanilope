@@ -5,7 +5,7 @@ const router = Router({ mergeParams: true });
 
 const get = (_req: Request, res: Response<RowIdentifier>) => {
   const response: RowIdentifier = {
-    id: 0,
+    id: '0',
     image: '',
     name: 'col1',
   };
@@ -16,19 +16,19 @@ const get = (_req: Request, res: Response<RowIdentifier>) => {
 const post = (req: Request, res: Response<RowIdentifier>) => {
   const params = req.body as RowRequest;
 
-  res.send({ ...params, id: 1 });
+  res.send({ ...params, id: '1' });
 };
 
 const put = (req: Request, res: Response<RowIdentifier>) => {
   const params = req.body as RowRequest;
 
-  res.send({ ...params, id: 1 });
+  res.send({ ...params, id: '1' });
 };
 
 const remove = (req: Request, res: Response<RowIdentifier>) => {
   const params = req.body as RowRequest;
 
-  res.send({ ...params, id: 1 });
+  res.send({ ...params, id: '1' });
 };
 
 router.route('/').get(get).post(post).put(put).delete(remove);

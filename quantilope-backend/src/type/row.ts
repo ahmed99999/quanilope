@@ -4,5 +4,5 @@ export interface RowRequest {
 }
 
 export interface RowIdentifier extends RowRequest {
-  id: number;
+  id: string;
 }

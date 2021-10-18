@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const RowSchema = new mongoose.Schema({
+const Row = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'must provide name'],
@@ -12,5 +12,5 @@ const RowSchema = new mongoose.Schema({
   },
 });
 
-export default RowSchema;
-export { RowSchema };
+export default Row;
+export { Row };
