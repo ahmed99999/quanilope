@@ -14,7 +14,9 @@ const updateColumn = async (
   columnId: string,
   params: ColumnRequest
 ): Promise<ColumnIdentifier> =>
-  (await Column.findByIdAndUpdate(columnId, params)) as ColumnIdentifier;
+  (await Column.findByIdAndUpdate(columnId, params, {
+    new: true,
+  })) as ColumnIdentifier;
 
 const deleteColumn = async (columnId: string): Promise<ColumnIdentifier> =>
   await Column.findByIdAndRemove(columnId);

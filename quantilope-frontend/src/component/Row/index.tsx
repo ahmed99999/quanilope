@@ -30,7 +30,7 @@ const Row = ({
     setFocus(false);
   };
 
-  //   const onFocus = () => {};
+  const onChange = (value: string) => setRow({ _id: row._id, name: value });
 
   return (
     <tr>
@@ -38,11 +38,12 @@ const Row = ({
         {!image && <button>+</button>}
         {image && <img src={image} alt='...' />}
       </td>
-      <td onBlur={() => setFocus(true)}>
-        {!focus && <span>{name}</span>}
+      <td>
+        {!focus && <span onClick={() => setFocus(true)}>{name}</span>}
         {focus && (
           <input
             value={name}
+            onChange={(e) => onChange(e.target.value)}
             onKeyUp={(e) => updateRow(_id, e.currentTarget.value, e.key)}
           />
         )}

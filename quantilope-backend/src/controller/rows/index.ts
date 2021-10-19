@@ -13,7 +13,7 @@ const updateRow = async (
   rowId: string,
   params: RowRequest
 ): Promise<RowIdentifier> =>
-  (await Row.findByIdAndUpdate(rowId, params)) as RowIdentifier;
+  (await Row.findByIdAndUpdate(rowId, params, { new: true })) as RowIdentifier;
 
 const deleteRow = async (rowId: string): Promise<RowIdentifier> =>
   await Row.findByIdAndRemove(rowId);
