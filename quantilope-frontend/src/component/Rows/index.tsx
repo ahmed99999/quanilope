@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { RowIdentifier, RowRequest } from '../../type';
+
 import RowComponent from '../../component/Row';
 import RowContainer from '../../container/Row';
+
+import ColumnsComponent from '../../component/Columns';
+import ColumnsContainer from '../../container/Columns';
 
 interface Props {
   onLoad?: () => Promise<RowIdentifier[]>;
@@ -9,6 +13,7 @@ interface Props {
   onDelete?: (id: string) => Promise<string>;
 }
 
+const Columns = ColumnsContainer(ColumnsComponent);
 const Row = RowContainer(RowComponent);
 
 const Rows = ({
@@ -43,6 +48,7 @@ const Rows = ({
   return (
     <table>
       <tbody>
+        <Columns />
         {rows.map((row) => (
           <Row
             key={row._id}
