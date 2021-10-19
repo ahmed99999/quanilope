@@ -1,36 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { SummaryContext } from '../../context';
 import { RowIdentifier, RowRequest } from '../../type';
 
 import RowComponent from '../../component/Row';
 import RowContainer from '../../container/Row';
 
-import ColumnsComponent from '../../component/Columns';
-import ColumnsContainer from '../../container/Columns';
-
 interface Props {
+  numberOfColumns: number;
   onLoad?: () => Promise<RowIdentifier[]>;
   onCreate?: (row: RowRequest) => Promise<RowIdentifier>;
   onDelete?: (id: string) => Promise<string>;
 }
 
-const Columns = ColumnsContainer(ColumnsComponent);
 const Row = RowContainer(RowComponent);
 
 const Rows = ({
+  numberOfColumns,
   onLoad = async () => [],
   onCreate = async () => ({ _id: '', name: '' }),
   onDelete = async () => '',
 }: Props) => {
+  const { summary, setSummary } = useContext(SummaryContext);
+
   const [rows, setRows] = useState<RowIdentifier[]>([]);
 
   useEffect(() => {
     const getRows = async () => {
       const rows = await onLoad();
+      setSummary({ ...summary, rowsNumber: rows.length });
       setRows(rows);
     };
 
     getRows();
-  }, [onLoad]);
+  }, []);
 
   const createRow = async (row: RowRequest) => {
     const newRow = await onCreate(row);
@@ -45,25 +47,24 @@ const Rows = ({
     setRows(newRows);
   };
 
+  console.log('rows');
+
   return (
-    <table>
-      <tbody>
-        <Columns />
-        {rows.map((row) => (
-          <Row
-            key={row._id}
-            row={row}
-            numberOfColumns={2}
-            onDelete={deleteRow}
-          />
-        ))}
-        <tr>
-          <td onClick={() => createRow({ name: 'row2', image: '' })}>
-            <button>+</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <>
+      {rows.map((row) => (
+        <Row
+          key={row._id}
+          row={row}
+          numberOfColumns={numberOfColumns}
+          onDelete={deleteRow}
+        />
+      ))}
+      <tr>
+        <td onClick={() => createRow({ name: 'row2', image: '' })}>
+          <button>+</button>
+        </td>
+      </tr>
+    </>
   );
 };
 
