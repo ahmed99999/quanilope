@@ -47,8 +47,6 @@ const Rows = ({
     setRows(newRows);
   };
 
-  console.log('rows');
-
   return (
     <>
       {rows.map((row) => (

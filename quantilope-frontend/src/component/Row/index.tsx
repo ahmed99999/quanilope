@@ -51,6 +51,7 @@ const Row = ({
       {arrayOfDots.map((element) => (
         <td key={element}>{'O'}</td>
       ))}
+      <td></td>
       <td onClick={() => onDelete(_id)}>
         <button>-</button>
       </td>

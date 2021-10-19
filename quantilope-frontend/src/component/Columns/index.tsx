@@ -5,7 +5,7 @@ import { ColumnIdentifier, ColumnRequest } from '../../type';
 
 import ColumnHeader from '../../component/ColumnHeader';
 
-import ColumnComponent from '../../component/ColumnBody';
+import ColumnComponent from '../../component/Column';
 import ColumnContainer from '../../container/Column';
 
 import RowsComponent from '../../component/Rows';
@@ -38,6 +38,13 @@ const Columns = ({
     getColumns();
   }, []);
 
+  const createColumn = async (row: ColumnRequest) => {
+    const newColumn = await onCreate(row);
+    if (newColumn._id === '') return;
+    const newColumns = columns.concat([newColumn]);
+    setColumns(newColumns);
+  };
+
   const deleteColumn = async (rowId: string) => {
     const deletedColumnId = await onDelete(rowId);
     const newColumns = columns.filter(
@@ -56,7 +63,7 @@ const Columns = ({
             <ColumnHeader key={column._id} columnImage={column.image || ''} />
           ))}
           <td>
-            <button onClick={() => onCreate({ name: 'col2', image: '' })}>
+            <button onClick={() => createColumn({ name: 'col2', image: '' })}>
               +
             </button>
           </td>
@@ -69,6 +76,15 @@ const Columns = ({
           ))}
         </tr>
         <Rows numberOfColumns={columns.length} />
+        <tr>
+          <td></td>
+          <td></td>
+          {columns.map((column) => (
+            <td key={column._id} onClick={() => deleteColumn(column._id)}>
+              <button>-</button>
+            </td>
+          ))}
+        </tr>
       </tbody>
     </table>
   );

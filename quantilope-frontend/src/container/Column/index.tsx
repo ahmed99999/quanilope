@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { Props as ComponentProps } from '../../component/ColumnBody';
+import { Props as ComponentProps } from '../../component/Column';
 import { ColumnIdentifier, ColumnRequest, ApiResponse } from '../../type';
 import { COLUMNS_ENDPOINT } from '../../constant';
 import Http from '../../service/Http';
