@@ -21,13 +21,13 @@ const Rows = ({
   onDelete = async () => '',
 }: Props) => {
   const { summary, setSummary } = useContext(SummaryContext);
-
   const [rows, setRows] = useState<RowIdentifier[]>([]);
 
   useEffect(() => {
     const getRows = async () => {
       const rows = await onLoad();
-      setSummary({ ...summary, rowsNumber: rows.length });
+      const newSummary = { ...summary, rowsNumber: rows.length };
+      setSummary(newSummary);
       setRows(rows);
     };
 

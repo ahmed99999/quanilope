@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { SummaryContext } from '../../context';
 import { Summary } from '../../type';
 
-// import RowsComponent from '../../component/Rows';
-// import RowsContainer from '../../container/Rows';
+import SummaryComponent from '../../component/Summary';
 
 import ColumnsComponent from '../../component/Columns';
 import ColumnsContainer from '../../container/Columns';
@@ -20,8 +19,13 @@ const App = () => {
 
   return (
     <SummaryContext.Provider value={{ summary, setSummary }}>
-      <div className='App'>
-        <Columns />
+      <div className='row'>
+        <div className='col-6'>
+          <Columns />
+        </div>
+        <div className='col-6'>
+          <SummaryComponent summary={summary} />
+        </div>
       </div>
     </SummaryContext.Provider>
   );

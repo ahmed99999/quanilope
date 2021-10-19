@@ -31,7 +31,8 @@ const Columns = ({
   useEffect(() => {
     const getColumns = async () => {
       const columns = await onLoad();
-      setSummary({ ...summary, columnsNumber: columns.length });
+      const newSummary = { ...summary, columnsNumber: columns.length };
+      setSummary(newSummary);
       setColumns(columns);
     };
 
