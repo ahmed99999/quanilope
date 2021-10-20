@@ -61,7 +61,7 @@ const Columns = ({
           <td></td>
           <td></td>
           {columns.map((column) => (
-            <ColumnHeader key={column._id} columnImage={column.image || ''} />
+            <ColumnHeader key={column._id} column={column} />
           ))}
           <td>
             <button onClick={() => createColumn({ name: 'col2', image: '' })}>
@@ -73,7 +73,7 @@ const Columns = ({
           <td></td>
           <td></td>
           {columns.map((column) => (
-            <Column key={column._id} column={column} onDelete={deleteColumn} />
+            <Column key={column._id} column={column} />
           ))}
         </tr>
         <Rows numberOfColumns={columns.length} />

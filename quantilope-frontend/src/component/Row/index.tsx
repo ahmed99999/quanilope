@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { RowIdentifier, RowRequest } from '../../type';
 
+import ImageUploadComponent from '../../component/ImageUpload';
+import ImageUploadContainer from '../../container/ImageUpload';
+
 interface Props {
   row: RowIdentifier;
   columnsNumber: number;
   onDelete?: (id: string) => void;
   onUpdate?: (id: string, row: RowRequest) => Promise<RowIdentifier>;
 }
+
+const ImageUpload = ImageUploadContainer(ImageUploadComponent);
 
 const Row = ({
   row: currentRow,
@@ -30,13 +35,19 @@ const Row = ({
     setFocus(false);
   };
 
+  const onUpdateState = (row: RowIdentifier) => setRow(row);
+
   const onChange = (value: string) => setRow({ _id: row._id, name: value });
 
   return (
     <tr>
       <td>
-        {!image && <button>+</button>}
-        {image && <img src={image} alt='...' />}
+        <ImageUpload
+          imageURL={image}
+          type={'rows'}
+          element={row}
+          onUpdateState={onUpdateState}
+        />
       </td>
       <td>
         {!focus && <span onClick={() => setFocus(true)}>{name}</span>}

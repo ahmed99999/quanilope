@@ -16,12 +16,23 @@ const Container = (Component: ComponentType<ComponentProps>) => () => {
   };
 
   const onCreate = async (column: ColumnRequest): Promise<ColumnIdentifier> => {
-    const response = await Http().post<
-      ApiResponse<ColumnIdentifier>,
-      ColumnRequest
-    >(COLUMNS_ENDPOINT, column);
+    try {
+      const response = await Http().post<
+        ApiResponse<ColumnIdentifier>,
+        ColumnRequest
+      >(COLUMNS_ENDPOINT, column);
 
-    return response.data;
+      toast.success('column created successfully');
+
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      toast.error('Column could not be created');
+      return {
+        _id: '',
+        name: '',
+      };
+    }
   };
 
   const onDelete = async (ColumnId: string): Promise<string> => {
@@ -30,6 +41,9 @@ const Container = (Component: ComponentType<ComponentProps>) => () => {
         `${COLUMNS_ENDPOINT}/${ColumnId}`
       );
       const { _id: deletedColumnId } = response.data;
+
+      toast.success('column deleted successfully');
+
       return deletedColumnId;
     } catch (error) {
       console.error(error);

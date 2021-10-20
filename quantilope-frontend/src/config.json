@@ -1,4 +1,5 @@
 {
+    "baseURL":"http://localhost:5000",
     "apiEndPoint":"http://localhost:5000/api",
     "uploadEndPoint":"http://localhost:5000/upload"
 }

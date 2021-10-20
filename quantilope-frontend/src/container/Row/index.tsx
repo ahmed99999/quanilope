@@ -25,6 +25,9 @@ const Container =
         >(`${ROWS_ENDPOINT}/${rowId}`, row);
 
         const updatedRow = response.data;
+
+        toast.success('row updated successfully');
+
         return updatedRow;
       } catch (error) {
         console.error(error);

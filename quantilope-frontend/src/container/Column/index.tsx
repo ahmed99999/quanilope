@@ -7,12 +7,11 @@ import { toast } from 'react-toastify';
 
 interface Props {
   column: ColumnIdentifier;
-  onDelete?: (id: string) => void;
 }
 
 const Container =
   (Component: ComponentType<ComponentProps>) =>
-  ({ column, onDelete }: Props) => {
+  ({ column }: Props) => {
     const onUpdate = async (
       columnId: string,
       column: ColumnRequest
@@ -24,6 +23,8 @@ const Container =
         >(`${COLUMNS_ENDPOINT}/${columnId}`, column);
 
         const updatedColumn = response.data;
+        toast.success('column updated successfully');
+
         return updatedColumn;
       } catch (error) {
         console.error(error);
@@ -36,9 +37,7 @@ const Container =
       }
     };
 
-    return (
-      <Component column={column} onDelete={onDelete} onUpdate={onUpdate} />
-    );
+    return <Component column={column} onUpdate={onUpdate} />;
   };
 
 export default Container;

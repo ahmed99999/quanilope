@@ -28,7 +28,7 @@ const Container =
           RowRequest
         >(ROWS_ENDPOINT, row);
 
-        toast.success('row created');
+        toast.success('row created successfully');
 
         return response.data;
       } catch (error) {
@@ -47,6 +47,9 @@ const Container =
           `${ROWS_ENDPOINT}/${rowId}`
         );
         const { _id: deletedRowId } = response.data;
+
+        toast.success('row deleted successfully');
+
         return deletedRowId;
       } catch (error) {
         console.error(error);

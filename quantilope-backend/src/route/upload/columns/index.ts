@@ -16,6 +16,8 @@ router.route('/:id').post(
       const column = await controller.column.getColumn(columnId);
       if (!column)
         throw { name: 'NotFoundError', message: `column : ${columnId}` };
+
+      next();
     } catch (error: any) {
       if (error.name === 'NotFoundError') {
         next(new NotFoundError(error.message));

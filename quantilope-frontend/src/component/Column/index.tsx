@@ -3,13 +3,11 @@ import { ColumnIdentifier, ColumnRequest } from '../../type';
 
 interface Props {
   column: ColumnIdentifier;
-  onDelete?: (id: string) => void;
   onUpdate?: (id: string, column: ColumnRequest) => Promise<ColumnIdentifier>;
 }
 
 const Column = ({
   column: currentColumn,
-  onDelete = async () => null,
   onUpdate = async () => ({ _id: '', name: '' }),
 }: Props) => {
   const [column, setColumn] = useState<ColumnIdentifier>(currentColumn);
