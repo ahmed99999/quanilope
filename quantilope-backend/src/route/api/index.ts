@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
-import api from './api';
-import upload from './upload';
+import rows from './rows';
+import columns from './columns';
 
 const router = Router({ mergeParams: true });
 
-router.use('/api', api.router).use('/upload', upload.router);
+router.use('/rows', rows.router).use('/columns', columns.router);
 
 export default { router };
 export { router };

@@ -22,7 +22,7 @@ app.set('Content-Type', 'application/json');
 //   ).replace('<password>', process.env.DB_PASSWORD as string)
 // );
 
-app.use('/api', route.router);
+app.use('/', route.router);
 
 database(
   DATABASE_URL.replace('<user_name>', 'ahmedaminhd').replace(

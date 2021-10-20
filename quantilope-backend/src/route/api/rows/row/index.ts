@@ -1,14 +1,14 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { ColumnIdentifier, ColumnRequest, ApiResponse } from '../../../type';
-import controller from '../../../controller';
-import { NotFoundError, ValidationError, CustomError } from '../../../error';
-import { validateId } from '../../../util';
+import { RowIdentifier, RowRequest, ApiResponse } from '../../../../type';
+import { ValidationError, CustomError, NotFoundError } from '../../../../error';
+import { validateId } from '../../../../util';
+import controller from '../../../../controller';
 
 const router = Router({ mergeParams: true });
 
 const get = async (
   req: Request,
-  res: Response<ApiResponse<ColumnIdentifier>>,
+  res: Response<ApiResponse<RowIdentifier>>,
   next: NextFunction
 ) => {
   try {
@@ -17,7 +17,7 @@ const get = async (
     if (!validateId(columnId))
       throw { name: 'ValidationError', message: columnId };
 
-    const column = await controller.column.getColumn(columnId);
+    const column = await controller.row.getRow(columnId);
 
     if (!column) throw { name: 'NotFoundError', message: columnId };
 
@@ -37,17 +37,17 @@ const get = async (
 
 const put = async (
   req: Request,
-  res: Response<ApiResponse<ColumnIdentifier>>,
+  res: Response<ApiResponse<RowIdentifier>>,
   next: NextFunction
 ) => {
   try {
     const { id: columnId } = req.params;
-    const params = req.body as ColumnRequest;
+    const params = req.body as RowRequest;
 
     if (!validateId(columnId))
       throw { name: 'ValidationError', message: columnId };
 
-    const column = await controller.column.updateColumn(columnId, params);
+    const column = await controller.row.updateRow(columnId, params);
 
     if (!column) throw { name: 'NotFoundError', message: columnId };
 
@@ -67,7 +67,7 @@ const put = async (
 
 const remove = async (
   req: Request,
-  res: Response<ApiResponse<ColumnIdentifier>>,
+  res: Response<ApiResponse<RowIdentifier>>,
   next: NextFunction
 ) => {
   try {
@@ -76,7 +76,7 @@ const remove = async (
     if (!validateId(columnId))
       throw { name: 'ValidationError', message: columnId };
 
-    const column = await controller.column.deleteColumn(columnId);
+    const column = await controller.row.deleteRow(columnId);
 
     if (!column) throw { name: 'NotFoundError', message: columnId };
 
