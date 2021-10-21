@@ -33,7 +33,12 @@ const ImageUpload = ({
       )}
       {!imageURL && (
         <>
-          <img onClick={() => fileRef?.click()} src={plus} alt='...' />
+          <img
+            onClick={() => fileRef?.click()}
+            src={plus}
+            alt='...'
+            className={style.plus}
+          />
           <input
             className={style.file}
             ref={(fileInput) => (fileRef = fileInput)}
