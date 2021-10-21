@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { SummaryContext } from '../../context';
 import { RowIdentifier, RowRequest } from '../../type';
+import style from './style.module.scss';
+import plus from '../../img/plus.png';
 
 import RowComponent from '../../component/Row';
 import RowContainer from '../../container/Row';
@@ -58,8 +60,13 @@ const Rows = ({
         />
       ))}
       <tr>
-        <td onClick={() => createRow({ name: 'row2', image: '' })}>
-          <button>+</button>
+        <td>
+          <img
+            onClick={() => createRow({ name: 'row2', image: '' })}
+            src={plus}
+            className={style.img}
+            alt='...'
+          />
         </td>
       </tr>
     </>

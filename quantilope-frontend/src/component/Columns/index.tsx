@@ -2,6 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import { SummaryContext } from '../../context';
 
 import { ColumnIdentifier, ColumnRequest } from '../../type';
+import style from './style.module.scss';
+import plus from '../../img/plus.png';
+import minus from '../../img/minus.png';
 
 import ColumnHeader from '../../component/ColumnHeader';
 
@@ -55,7 +58,7 @@ const Columns = ({
   };
 
   return (
-    <table>
+    <table className={style.root}>
       <tbody>
         <tr>
           <td></td>
@@ -64,9 +67,12 @@ const Columns = ({
             <ColumnHeader key={column._id} column={column} />
           ))}
           <td>
-            <button onClick={() => createColumn({ name: 'col2', image: '' })}>
-              +
-            </button>
+            <img
+              onClick={() => createColumn({ name: 'col2', image: '' })}
+              src={plus}
+              alt='...'
+              className={style.img}
+            />
           </td>
         </tr>
         <tr>
@@ -81,8 +87,13 @@ const Columns = ({
           <td></td>
           <td></td>
           {columns.map((column) => (
-            <td key={column._id} onClick={() => deleteColumn(column._id)}>
-              <button>-</button>
+            <td key={column._id}>
+              <img
+                onClick={() => deleteColumn(column._id)}
+                src={minus}
+                alt='...'
+                className={style.img}
+              />
             </td>
           ))}
         </tr>

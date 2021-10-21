@@ -1,6 +1,9 @@
 import React from 'react';
 import { baseURL } from '../../config.json';
+
 import style from './style.module.scss';
+import plus from '../../img/plus-sign.png';
+
 import { RowIdentifier, ColumnIdentifier } from '../../type';
 
 interface Props {
@@ -25,10 +28,12 @@ const ImageUpload = ({
 
   return (
     <>
-      {imageURL && <img src={`${baseURL}/${imageURL}`} alt='...' />}
+      {imageURL && (
+        <img className={style.img} src={`${baseURL}/${imageURL}`} alt='...' />
+      )}
       {!imageURL && (
         <>
-          <button onClick={() => fileRef?.click()}>+</button>
+          <img onClick={() => fileRef?.click()} src={plus} alt='...' />
           <input
             className={style.file}
             ref={(fileInput) => (fileRef = fileInput)}

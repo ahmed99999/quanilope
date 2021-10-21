@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { RowIdentifier, RowRequest } from '../../type';
+import minus from '../../img/minus.png';
+import style from './style.module.scss';
 
 import ImageUploadComponent from '../../component/ImageUpload';
 import ImageUploadContainer from '../../container/ImageUpload';
@@ -63,8 +65,13 @@ const Row = ({
         <td key={element}>{'O'}</td>
       ))}
       <td></td>
-      <td onClick={() => onDelete(_id)}>
-        <button>-</button>
+      <td>
+        <img
+          onClick={() => onDelete(_id)}
+          src={minus}
+          alt='...'
+          className={style.img}
+        />
       </td>
     </tr>
   );
