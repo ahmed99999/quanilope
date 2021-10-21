@@ -57,6 +57,7 @@ const Row = ({
         {!focus && <span onClick={() => setFocus(true)}>{name}</span>}
         {focus && (
           <input
+            className={style.input}
             value={name}
             onChange={(e) => onChange(e.target.value)}
             onKeyUp={(e) => updateRow(_id, e.currentTarget.value, e.key)}
