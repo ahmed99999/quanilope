@@ -68,7 +68,7 @@ const Columns = ({
           ))}
           <td>
             <img
-              onClick={() => createColumn({ name: 'col2', image: '' })}
+              onClick={() => createColumn({ name: 'col', image: '' })}
               src={plus}
               alt='...'
               className={style.img}

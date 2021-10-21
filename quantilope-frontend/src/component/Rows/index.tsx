@@ -62,7 +62,7 @@ const Rows = ({
       <tr>
         <td>
           <img
-            onClick={() => createRow({ name: 'row2', image: '' })}
+            onClick={() => createRow({ name: 'row', image: '' })}
             src={plus}
             className={style.img}
             alt='...'

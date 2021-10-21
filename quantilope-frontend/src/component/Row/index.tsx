@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { RowIdentifier, RowRequest } from '../../type';
+
+import oval from '../../img/oval.png';
 import minus from '../../img/minus.png';
 import style from './style.module.scss';
 
@@ -62,7 +64,9 @@ const Row = ({
         )}
       </td>
       {arrayOfDots.map((element) => (
-        <td key={element}>{'O'}</td>
+        <td key={element}>
+          <img src={oval} alt='...' />
+        </td>
       ))}
       <td></td>
       <td>
